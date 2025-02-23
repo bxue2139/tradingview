@@ -1,0 +1,27 @@
+//@version=6
+indicator("FibFib v6", shorttitle="AutoFib v6", overlay=true)
+
+// 输入参数：斐波那契回溯长度
+fiblength = input(265, title="Fibonacci Length")
+
+// 计算最高值、最低值及区间
+maxr = ta.highest(close, fiblength)
+minr = ta.lowest(close, fiblength)
+ranr = maxr - minr
+
+// 绘制斐波那契分割线
+ON = plot(maxr, color=color.black, title="1")
+SS = plot(maxr - 0.236 * ranr, title="0.764", color=#3399FF)
+SO = plot(maxr - 0.382 * ranr, title="0.618", color=color.blue)
+FI = plot(maxr - 0.50 * ranr, title="0.5", color=color.lime)
+TE = plot(minr + 0.382 * ranr, title="0.382", color=color.green)
+TT = plot(minr + 0.236 * ranr, title="0.236", color=color.red)
+ZZ = plot(minr, title="0", color=color.black)
+
+// 对各个分割区间进行填充
+fill(ON, SS, color=color.red)
+fill(SS, SO, color=#3399FF)
+fill(SO, FI, color=color.lime)
+fill(FI, TE, color=color.lime)
+fill(TE, TT, color=#3399FF)
+fill(TT, ZZ, color=color.red)
